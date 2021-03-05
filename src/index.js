@@ -1,17 +1,66 @@
-import React from 'react';
+import react, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+class Counter extends Component {
+  constructor() {
+    super();
+    this.state = {
+      count: 0
+    }
+  }
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+  
+
+  doCount() {
+    const { onCount } = this.props;
+
+    this.setState({
+      count: this.state.count + 1
+    })
+
+    onCount(1);
+  }
+
+  render() {
+    const { name } = this.props;
+
+    return (
+      <div>
+        <h3>{this.state.count}</h3>
+        <button onClick={() => this.doCount()}>{name}</button>
+      </div>
+    )
+  }
+}
+
+class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      total: 0,
+      foo: 'abc'
+    }
+  }
+
+  countTotal(increment) {
+    const { total } = this.state;
+
+    this.setState({
+      total: total + increment
+    })
+  }
+
+  render() {
+    return (
+      <div>
+        <Counter name="Counter 1" onCount={(increment) => this.countTotal(increment)} />
+        <Counter name="Counter 2" onCount={(increment) => this.countTotal(increment)} />
+        <Counter name="Counter 3" onCount={(increment) => this.countTotal(increment)} />
+
+        <h3>Total count = {this.state.total}</h3>
+      </div>
+    )
+  }
+}
+
+ReactDOM.render(<App />, document.getElementById('root'))
