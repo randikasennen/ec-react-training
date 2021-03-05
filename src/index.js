@@ -6,7 +6,8 @@ class App extends Component {
     constructor() {
         super();
         this.state = {
-            isMount: false
+            isMount: false,
+            count: 0
         }
     }
 
@@ -14,7 +15,8 @@ class App extends Component {
         return (
             <div>
                 <button onClick={() => this.setState({ isMount: true })}>Mount</button>
-                {this.state.isMount && <Counter />}
+                <button onClick={() => this.setState({ count: this.state.count + 1 })}>Update</button>
+                {this.state.isMount && <Counter count={this.state.count} />}
             </div>
         )
     }
