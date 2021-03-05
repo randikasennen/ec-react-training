@@ -11,6 +11,10 @@ export default class Counter extends Component {
 
     componentDidMount() {
         console.log('ComponentDidMount');
+
+        this.counter = setInterval(() => {
+            this.setState({ stateValue: this.state.stateValue + 1 })
+        }, 1000)
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -19,6 +23,11 @@ export default class Counter extends Component {
         
         if(this.state.stateValue !== prevState.stateValue)
             console.log('State updated: From ' + prevState.stateValue + ' to ' + this.state.stateValue);
+    }
+
+    componentWillUnmount() {
+        console.log('ComponentWillUnmount');
+        clearInterval(this.counter);
     }
 
     render() {

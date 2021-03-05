@@ -16,6 +16,7 @@ class App extends Component {
             <div>
                 <button onClick={() => this.setState({ isMount: true })}>Mount</button>
                 <button onClick={() => this.setState({ count: this.state.count + 1 })}>Update</button>
+                <button onClick={() => this.setState({ isMount: false })}>Unmount</button>
                 {this.state.isMount && <Counter count={this.state.count} />}
             </div>
         )
