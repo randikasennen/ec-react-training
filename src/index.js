@@ -1,17 +1,31 @@
-import React from 'react';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import Board from './Board'
 import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+        winner: null,
+    }
+  }
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+  onCheckWinner(winner) {
+    this.setState({ winner })
+  }
+
+  render() {
+    const { winner } = this.state;
+
+    return(
+      <div className="container">
+        <h1 className="title">Welcome to Tic-Tac-Toe</h1>
+        <Board onCheckWinner={(winner) => this.onCheckWinner(winner)} />
+        {winner && <h3>The winner is: {winner}</h3>}
+      </div>
+    )
+  }
+}
+
+ReactDOM.render(<App />, document.getElementById('root'));
