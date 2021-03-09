@@ -1,17 +1,25 @@
-import React from 'react';
+import { useState } from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+function App() {
+    const [name, setName] = useState('');
+    const [job, setJob] = useState('');
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+    const handleOnSubmit = (e) => {
+        e.preventDefault();
+
+        const data = { name, job };
+
+        console.log(data)
+    }
+
+    return(
+        <form onSubmit={(e) => handleOnSubmit(e)}>
+            <input type="text" placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} />
+            <input type="text" placeholder="Job" value={job} onChange={(e) => setJob(e.target.value)} />
+            <input type="submit" />
+        </form>
+    )
+}
+
+ReactDOM.render(<App />, document.getElementById('root'));
