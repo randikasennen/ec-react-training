@@ -10,7 +10,14 @@ function App() {
 
         const data = { name, job };
 
-        console.log(data)
+        fetch('https://reqres.in/api/users', {
+            method: 'POST',
+            body: data
+        })
+        .then(response => { // Success callback
+            response.json().then(responseJSON => console.log(responseJSON));
+        })
+        .catch(error => console.log(error))    // Exception callback
     }
 
     return(
@@ -23,3 +30,13 @@ function App() {
 }
 
 ReactDOM.render(<App />, document.getElementById('root'));
+
+
+
+/*
+
+
+Front-end <-- fetch-api --> Back-end
+
+
+*/
