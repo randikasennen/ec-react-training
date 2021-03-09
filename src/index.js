@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
-import './table.css';
+import Card from './Card';
+import './index.css';
 
 function App() {
     const [data, setData] = useState([]);
@@ -15,40 +16,24 @@ function App() {
             .then(responseJSON => {
                 const data = responseJSON.data;
 
-                var tableData = [];
+                var cardsData = [];
 
                 data.forEach((dataObj, index) => {
-                    const { id, email, first_name, last_name, avatar } = dataObj;
-
-                    tableData.push(
-                        <tr key={index}>
-                            <td>{id}</td>
-                            <td>{email}</td>
-                            <td>{first_name}</td>
-                            <td>{last_name}</td>
-                            <td><img src={avatar} /></td>
-                        </tr>
+                    cardsData.push(
+                        <Card data={dataObj} key={index} />
                     )
                 })
 
-                setData(tableData);
+                setData(cardsData);
             })
             .catch(error => console.log(error))
     }
 
     return(
-        <table>
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Email</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Avatar</th>
-                </tr>
-            </thead>
-            <tbody>{data}</tbody>
-        </table>
+        <div>
+            <h1 className="title">Users List</h1>
+            <div className="cards-container">{data}</div>
+        </div>
     )
 }
 
