@@ -1,42 +1,51 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
+import './index.css';
 
 function App() {
-    const [name, setName] = useState('');
-    const [job, setJob] = useState('');
+    const [data, setData] = useState([]);
 
-    const handleOnSubmit = (e) => {
-        e.preventDefault();
+    useEffect(() => {
+        fetchData();
+    }, []);
 
-        const data = { name, job };
+    const fetchData = () => {
+        fetch('https://reqres.in/api/users?page=2')
+            .then(response => response.json())
+            .then(responseJSON => {
+                const data = responseJSON.data;
 
-        fetch('https://reqres.in/api/users', {
-            method: 'POST',
-            body: data
-        })
-        .then(response => { // Success callback
-            response.json().then(responseJSON => console.log(responseJSON));
-        })
-        .catch(error => console.log(error))    // Exception callback
+                var tableData = [];
+
+                data.forEach((dataObj, index) => {
+                    const { id, email, first_name, last_name } = dataObj;
+
+                    tableData.push(
+                        <tr key={index}>
+                            <td>{id}</td>
+                            <td>{email}</td>
+                            <td>{first_name}</td>
+                            <td>{last_name}</td>
+                        </tr>
+                    )
+                })
+
+                setData(tableData);
+            })
+            .catch(error => console.log(error))
     }
 
     return(
-        <form onSubmit={(e) => handleOnSubmit(e)}>
-            <input type="text" placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} />
-            <input type="text" placeholder="Job" value={job} onChange={(e) => setJob(e.target.value)} />
-            <input type="submit" />
-        </form>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Email</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+            </tr>
+            <tbody>{data}</tbody>
+        </table>
     )
 }
 
 ReactDOM.render(<App />, document.getElementById('root'));
-
-
-
-/*
-
-
-Front-end <-- fetch-api --> Back-end
-
-
-*/
