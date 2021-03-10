@@ -35,7 +35,7 @@ export default function App() {
           name="first_name"
           value={firstName}
           onChange={(value) => { setFirstName(value); delete errors.firstNameError }}
-          error={errors.hasOwnProperty('firstNameError') && errors.firstNameError}
+          error={errors.firstNameError}
         />
         
         <TextInput
@@ -43,7 +43,7 @@ export default function App() {
           name="last_name"
           value={lastName}
           onChange={(value) => { setLastName(value); delete errors.lastNameError }}
-          error={errors.hasOwnProperty('lastNameError') && errors.lastNameError}
+          error={errors.lastNameError}
         />
         
         <TextInput
@@ -51,7 +51,7 @@ export default function App() {
           name="email"
           value={email}
           onChange={(value) => { setEmail(value); delete errors.emailError }}
-          error={errors.hasOwnProperty('emailError') && errors.emailError}
+          error={errors.emailError}
         />
 
         <input type="submit" className="submit"/>
