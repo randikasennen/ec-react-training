@@ -25,23 +25,28 @@ export default function App() {
   }
 
   const validateForm = () => {
+    let validity = true;
+
     if(!firstName.trim().length) {
       setFirstNameError("First name is required");
+      validity = false;
     }
 
     if(!lastName.trim().length) {
       setLastNameError("Last name is required");
+      validity = false;
     }
 
-    if(!_validateEmail()) {
+    if(!email.trim().length) {
+      setEmailError("Email is required");
+      validity = false;
+    }
+    else if(!_validateEmail()) {
       setEmailError("Invalid email address");
+      validity = false;
     }
 
-    if(!firstNameError && !lastNameError && !emailError) {
-      return true;
-    }
-
-    return false;
+    return validity;
   }
 
   const _validateEmail = () => {
@@ -64,7 +69,7 @@ export default function App() {
           label="First Name"
           name="first_name"
           value={firstName}
-          onChange={(value) => setFirstName(value)}
+          onChange={(value) => { setFirstName(value); setFirstNameError(null) }}
           error={firstNameError}
         />
         
@@ -72,7 +77,7 @@ export default function App() {
           label="Last Name"
           name="last_name"
           value={lastName}
-          onChange={(value) => setLastName(value)}
+          onChange={(value) => { setLastName(value); setLastNameError(null) }}
           error={lastNameError}
         />
         
@@ -80,7 +85,7 @@ export default function App() {
           label="Email"
           name="email"
           value={email}
-          onChange={(value) => setEmail(value)}
+          onChange={(value) => { setEmail(value); setEmailError(null) }}
           error={emailError}
         />
 
