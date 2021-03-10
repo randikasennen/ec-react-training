@@ -8,26 +8,21 @@ export default function App() {
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
 
-  const [firstNameError, setFirstNameError] = useState(null);
-  const [lastNameError, setLastNameError] = useState(null);
-  const [emailError, setEmailError] = useState(null);
+  const [errors, setErrors] = useState({});
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
 
     const data = { firstName, lastName, email };
 
-    const [errors, validity] = ValidateForm(data);
+    const errors = ValidateForm(data);
+    setErrors(errors);
 
-    if(!validity) {
-      setFirstNameError(errors.firstNameError);
-      setLastNameError(errors.lastNameError);
-      setEmailError(errors.emailError);
-
-      console.log("Form is invalid");
+    if(!Object.keys(errors).length) {
+      console.log("Form is valid");
     }
     else {
-      console.log("Form is valid");
+      console.log("Form is invalid");
     }
   }
 
@@ -39,24 +34,24 @@ export default function App() {
           label="First Name"
           name="first_name"
           value={firstName}
-          onChange={(value) => { setFirstName(value); setFirstNameError(null) }}
-          error={firstNameError}
+          onChange={(value) => { setFirstName(value); delete errors.firstNameError }}
+          error={errors.hasOwnProperty('firstNameError') && errors.firstNameError}
         />
         
         <TextInput
           label="Last Name"
           name="last_name"
           value={lastName}
-          onChange={(value) => { setLastName(value); setLastNameError(null) }}
-          error={lastNameError}
+          onChange={(value) => { setLastName(value); delete errors.lastNameError }}
+          error={errors.hasOwnProperty('lastNameError') && errors.lastNameError}
         />
         
         <TextInput
           label="Email"
           name="email"
           value={email}
-          onChange={(value) => { setEmail(value); setEmailError(null) }}
-          error={emailError}
+          onChange={(value) => { setEmail(value); delete errors.emailError }}
+          error={errors.hasOwnProperty('emailError') && errors.emailError}
         />
 
         <input type="submit" className="submit"/>
