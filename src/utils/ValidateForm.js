@@ -7,22 +7,28 @@ export default function ValidateForm(data) {
         emailError: null
     };
 
+    let validity = true;
+
     if(!firstName.trim().length) {
       errors.firstNameError = "First name is required";
+      validity = false;
     }
 
     if(!lastName.trim().length) {
       errors.lastNameError = "Last name is required";
+      validity = false;
     }
 
     if(!email.trim().length) {
       errors.emailError = "Email is required";
+      validity = false;
     }
     else if(!_validateEmail(email)) {
       errors.emailError = "Invalid email address";
+      validity = false;
     }
 
-    return errors;
+    return [errors, validity];
 }
 
 function _validateEmail(email) {

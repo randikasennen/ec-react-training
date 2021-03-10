@@ -8,25 +8,26 @@ export default function App() {
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
 
-  const [firstNameError, setFirstNameError] = useState('');
-  const [lastNameError, setLastNameError] = useState('');
-  const [emailError, setEmailError] = useState('');
+  const [firstNameError, setFirstNameError] = useState(null);
+  const [lastNameError, setLastNameError] = useState(null);
+  const [emailError, setEmailError] = useState(null);
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
 
     const data = { firstName, lastName, email };
 
-    const errors = ValidateForm(data);
-    setFirstNameError(errors.firstNameError);
-    setLastNameError(errors.lastNameError);
-    setEmailError(errors.emailError);
+    const [errors, validity] = ValidateForm(data);
 
-    if(!firstNameError.length && !lastNameError.length && !emailError.length) {
-      console.log("Form is valid");
+    if(!validity) {
+      setFirstNameError(errors.firstNameError);
+      setLastNameError(errors.lastNameError);
+      setEmailError(errors.emailError);
+
+      console.log("Form is invalid");
     }
     else {
-      console.log("Form is invalid");
+      console.log("Form is valid");
     }
   }
 
