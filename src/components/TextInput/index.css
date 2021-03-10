@@ -1,0 +1,16 @@
+.text-input {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 10px;
+}
+
+.text-input .label {
+    font-weight: 500;
+    width: 100px;
+}
+
+.text-input input {
+    margin-left: 10px;
+    padding: 5px;
+}
