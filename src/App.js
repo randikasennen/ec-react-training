@@ -1,65 +1,34 @@
 import { useState } from 'react';
 import './App.css';
 import TextInput from './components/TextInput';
+import ValidateForm from './utils/ValidateForm';
 
 export default function App() {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
 
-  const [firstNameError, setFirstNameError] = useState(null);
-  const [lastNameError, setLastNameError] = useState(null);
-  const [emailError, setEmailError] = useState(null);
+  const [firstNameError, setFirstNameError] = useState('');
+  const [lastNameError, setLastNameError] = useState('');
+  const [emailError, setEmailError] = useState('');
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
 
-    const isValid = validateForm();
+    const data = { firstName, lastName, email };
 
-    if(isValid) {
+    const errors = ValidateForm(data);
+    setFirstNameError(errors.firstNameError);
+    setLastNameError(errors.lastNameError);
+    setEmailError(errors.emailError);
+
+    if(!firstNameError.length && !lastNameError.length && !emailError.length) {
       console.log("Form is valid");
     }
     else {
       console.log("Form is invalid");
     }
   }
-
-  const validateForm = () => {
-    let validity = true;
-
-    if(!firstName.trim().length) {
-      setFirstNameError("First name is required");
-      validity = false;
-    }
-
-    if(!lastName.trim().length) {
-      setLastNameError("Last name is required");
-      validity = false;
-    }
-
-    if(!email.trim().length) {
-      setEmailError("Email is required");
-      validity = false;
-    }
-    else if(!_validateEmail()) {
-      setEmailError("Invalid email address");
-      validity = false;
-    }
-
-    return validity;
-  }
-
-  const _validateEmail = () => {
-    const pattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
-  
-    if(!pattern.test(email)) {
-      return false;
-    }
-
-    return true;
-  }
-
-
 
   return (
     <div>
