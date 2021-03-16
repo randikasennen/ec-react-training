@@ -11,23 +11,13 @@ export default function App() {
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [avatar, setAvatar] = useState('');
-
+  const [document, setDocument] = useState('');
   const [errors, setErrors] = useState({});
-
-  const onChooseFile = (file) => {
-    const fileReader = new FileReader();
-    fileReader.readAsDataURL(file);
-
-    fileReader.onload = (e) => {
-      setAvatar(e.target.result);
-    }
-  }
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
     
-
-    const data = { firstName, lastName, email, avatar };
+    const data = { firstName, lastName, email, avatar, document };
 
     const errors = ValidateForm(data);
     setErrors(errors);
@@ -77,7 +67,14 @@ export default function App() {
         <FileInput
           label="Profile Picture"
           name="avatar"
-          onChange={(file) => { onChooseFile(file) }}
+          onChange={(file) => { ReadFileAsDataURL(file, setAvatar); }}
+          error={errors.emailError}
+        />
+
+        <FileInput
+          label="Document"
+          name="document"
+          onChange={(file) => { ReadFileAsDataURL(file, setDocument); }}
           error={errors.emailError}
         />
 
