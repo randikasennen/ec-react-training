@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import axios from 'axios';
 import './App.css';
 import TextInput from './components/TextInput';
 import ValidateForm from './utils/ValidateForm';
@@ -19,7 +20,13 @@ export default function App() {
     setErrors(errors);
 
     if(!Object.keys(errors).length) {
-      console.log("Form is valid");
+      axios.post('http://localhost:3004/users', data)
+          .then(function (response) {
+            console.log(response);
+          })
+          .catch(function (error) {
+            console.log(error);
+          })
     }
     else {
       console.log("Form is invalid");
