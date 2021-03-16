@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import axios from 'axios';
+import api from './api/api.js';
 import './App.css';
 import TextInput from './components/TextInput';
 import ValidateForm from './utils/ValidateForm';
@@ -20,7 +20,7 @@ export default function App() {
     setErrors(errors);
 
     if(!Object.keys(errors).length) {
-      axios.post('http://localhost:3004/users', data)
+      api.post('/users', data)
           .then(function (response) {
             console.log(response);
           })
