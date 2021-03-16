@@ -2,19 +2,32 @@ import { useState } from 'react';
 import api from './api/api.js';
 import './App.css';
 import TextInput from './components/TextInput';
+import FileInput from './components/FileInput';
 import ValidateForm from './utils/ValidateForm';
+import ReadFileAsDataURL from './utils/FileReader';
 
 export default function App() {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
+  const [avatar, setAvatar] = useState('');
 
   const [errors, setErrors] = useState({});
 
+  const onChooseFile = (file) => {
+    const fileReader = new FileReader();
+    fileReader.readAsDataURL(file);
+
+    fileReader.onload = (e) => {
+      setAvatar(e.target.result);
+    }
+  }
+
   const handleOnSubmit = (e) => {
     e.preventDefault();
+    
 
-    const data = { firstName, lastName, email };
+    const data = { firstName, lastName, email, avatar };
 
     const errors = ValidateForm(data);
     setErrors(errors);
@@ -58,6 +71,13 @@ export default function App() {
           name="email"
           value={email}
           onChange={(value) => { setEmail(value); delete errors.emailError }}
+          error={errors.emailError}
+        />
+
+        <FileInput
+          label="Profile Picture"
+          name="avatar"
+          onChange={(file) => { onChooseFile(file) }}
           error={errors.emailError}
         />
 
