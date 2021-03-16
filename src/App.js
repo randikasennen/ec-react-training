@@ -68,14 +68,12 @@ export default function App() {
           label="Profile Picture"
           name="avatar"
           onChange={(file) => { ReadFileAsDataURL(file, setAvatar); }}
-          error={errors.emailError}
         />
 
         <FileInput
           label="Document"
           name="document"
           onChange={(file) => { ReadFileAsDataURL(file, setDocument); }}
-          error={errors.emailError}
         />
 
         <input type="submit" className="submit"/>
