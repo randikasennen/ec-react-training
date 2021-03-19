@@ -1,0 +1,46 @@
+.card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 300px;
+    border: 1px solid #cccccc;
+}
+
+.cover-image {
+    width: 300px;
+    object-fit: contain;
+}
+
+.user-info-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 20px 0px;
+}
+
+.avatar {
+    height: 60px;
+    width: 60px;
+    border-radius: 30px;
+    margin-right: 20px;
+}
+
+.name {
+    font-size: 20px;
+    font-weight: 500;
+    color: #1a1a1a;
+}
+
+.email {
+    font-size: 14px;
+    color: #0080ff;
+}
+
+.description {
+    font-size: 14px;
+    color: #808080;
+    text-align: center;
+    margin: 20px;
+    margin-top: 0px;
+}
