@@ -1,15 +1,11 @@
+import { TextField } from '@material-ui/core';
+import useStyles from './style.js';
 import './index.css';
 
 export default function TextInput(props) {
-    const { label, type, name, value, onChange, error } = props;
+    const { onChange, ...restProps } = props;
 
-    return(
-        <div className="text-input-container">
-            <div className="text-input">
-                <div className="label">{label}</div>
-                <input type={type || 'text'} name={name} value={value} onChange={(e) => onChange(e.target.value)} /> 
-            </div>
-            {error && <div className="error">{error}</div>}
-        </div>
-    )
+    const classes = useStyles();
+
+    return <TextField className={classes.textField} {...restProps} onChange={(e) => onChange(e.target.value)} />
 }

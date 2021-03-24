@@ -1,3 +1,7 @@
+.text-field {
+    width: 300px;
+}
+
 .text-input {
     display: flex;
     flex-direction: row;

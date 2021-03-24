@@ -30,16 +30,12 @@ export default function SignPage(props) {
       <form onSubmit={handleOnSubmit} >
         <TextInput
           label="Email"
-          name="email"
-          value={email}
           onChange={(value) => { setEmail(value) }}
         />
 
         <TextInput
           label="Password"
-          name="password"
           type="password"
-          value={password}
           onChange={(value) => { setPassword(value) }}
         />
 

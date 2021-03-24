@@ -12,3 +12,8 @@ export async function signin(email, password) {
        })
        .catch(() => { return -1 });
 }
+
+export function loadAuthUser() {
+    const authUser = JSON.parse(localStorage.getItem('authUser'));
+    return authUser;
+}
