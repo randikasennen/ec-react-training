@@ -9,6 +9,7 @@ export default function RegisterUserPage() {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [avatar, setAvatar] = useState('');
   const [document, setDocument] = useState('');
   const [errors, setErrors] = useState({});
@@ -16,13 +17,13 @@ export default function RegisterUserPage() {
   const handleOnSubmit = (e) => {
     e.preventDefault();
     
-    const data = { firstName, lastName, email, avatar, document };
+    const data = { firstName, lastName, email, password, avatar, document };
 
     const errors = ValidateForm(data);
     setErrors(errors);
 
     if(!Object.keys(errors).length) {
-      api.post('/users', data)
+      api.post('/register', data)
           .then(function (response) {
             console.log(response);
           })
@@ -61,6 +62,15 @@ export default function RegisterUserPage() {
           value={email}
           onChange={(value) => { setEmail(value); delete errors.emailError }}
           error={errors.emailError}
+        />
+
+        <TextInput
+          label="Password"
+          name="password"
+          type="password"
+          value={password}
+          onChange={(value) => { setPassword(value); delete errors.passwordError }}
+          error={errors.passwordError}
         />
 
         <FileInput

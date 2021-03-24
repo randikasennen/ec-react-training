@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import api from '../../api/api.js';
-import { useTranslation } from 'react-i18next';
 
 export default function(props) {
     const [data, setData] = useState([]);
     const [list, setList] = useState([]);
-
-    const { t, i18n } = useTranslation();
 
     useEffect(() => { fetchData() }, []);
     useEffect(() => { buildList() }, [data]);
@@ -31,13 +28,9 @@ export default function(props) {
 
     return (
         <div>
-            <h1>{t("Welcome")}</h1>
-            <h2>{t("Greetings")}</h2>
-            <h3>{t("Quote")}</h3>
-            <div>{list}</div>
+            {/* <div>{list}</div> */}
+            <button onClick={() => props.history.push('/signin')}>Signin</button>
             <button onClick={() => props.history.push('/register')}>Register new user</button>
-            <button onClick={() => i18n.changeLanguage('en')}>English</button>
-            <button onClick={() => i18n.changeLanguage('sin')}>Sinhala</button>
         </div>
     )
 }
